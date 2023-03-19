@@ -37,7 +37,7 @@
 #define MOVE(hor, vert) (MOVE_HOR(hor) + MOVE_VERT(vert))
 
 #define MOVE_UP MOVE_VERT(-600)
-#define MOVE_DOWN MOVE_VERT(600)
+#define MOVE_DOWN MOVE_VERT(1000)
 #define MOVE_LEFT MOVE_HOR(-600)
 #define MOVE_RIGHT MOVE_HOR(600)
 

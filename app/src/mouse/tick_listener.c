@@ -50,8 +50,8 @@ static float speed(const struct mouse_config *config, float max_speed, int64_t d
         return max_speed;
     }
     float time_fraction = (float)duration_ms / config->time_to_max_speed_ms;
-    if (time_fraction < 0.35) {
-        time_fraction = 0.35;
+    if (time_fraction < 0.4) {
+        time_fraction = 0.4;
     }
     return max_speed * powf(time_fraction, config->acceleration_exponent);
 }

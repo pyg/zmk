@@ -45,13 +45,13 @@ static int64_t ms_since_start(int64_t start, int64_t now, int64_t delay) {
 static float speed(const struct mouse_config *config, float max_speed, int64_t duration_ms) {
     // Calculate the speed based on MouseKeysAccel
     // See https://en.wikipedia.org/wiki/Mouse_keys
-    if (true || duration_ms > config->time_to_max_speed_ms || config->time_to_max_speed_ms == 0 ||
+    if (duration_ms > config->time_to_max_speed_ms || config->time_to_max_speed_ms == 0 ||
         config->acceleration_exponent == 0) {
         return max_speed;
     }
     float time_fraction = (float)duration_ms / config->time_to_max_speed_ms;
-    if (time_fraction < 0.2) {
-        time_fraction = 0.2;
+    if (time_fraction < 0.35) {
+        time_fraction = 0.35;
     }
     return max_speed * powf(time_fraction, config->acceleration_exponent);
 }

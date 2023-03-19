@@ -45,7 +45,7 @@ static int64_t ms_since_start(int64_t start, int64_t now, int64_t delay) {
 static float speed(const struct mouse_config *config, float max_speed, int64_t duration_ms) {
     // Calculate the speed based on MouseKeysAccel
     // See https://en.wikipedia.org/wiki/Mouse_keys
-    if (duration_ms > config->time_to_max_speed_ms || config->time_to_max_speed_ms == 0 ||
+    if (true || duration_ms > config->time_to_max_speed_ms || config->time_to_max_speed_ms == 0 ||
         config->acceleration_exponent == 0) {
         return max_speed;
     }

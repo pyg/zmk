@@ -82,7 +82,7 @@ static struct vector2d update_movement(struct vector2d *remainder,
             .y = 3600 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
         };
     } else if (move_duration < 200) {
-        move = 0;
+        move = {0};
     } else {
 
         move = (struct vector2d){

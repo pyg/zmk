@@ -33,6 +33,8 @@ static float powf(float base, float exponent) {
 struct vector2d move_remainder = {0};
 struct vector2d scroll_remainder = {0};
 
+int64_t last_start_time = 0;
+
 static int64_t ms_since_start(int64_t start, int64_t now, int64_t delay) {
     int64_t move_duration = now - (start + delay);
     // start can be in the future if there's a delay
@@ -67,15 +69,27 @@ static struct vector2d update_movement(struct vector2d *remainder,
                                        int64_t now, int64_t *start_time) {
     struct vector2d move = {0};
     if (max_speed.x == 0 && max_speed.y == 0) {
-        *remainder = (struct vector2d){0};
+        *remainder = (struct vector2d)S{0};
         return move;
     }
 
     int64_t move_duration = ms_since_start(*start_time, now, config->delay_ms);
-    move = (struct vector2d){
-        .x = speed(config, max_speed.x, move_duration) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
-        .y = speed(config, max_speed.y, move_duration) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
-    };
+
+    if (*start_time != last_start_time) {
+        last_start_time = *start_time;
+        move = (struct vector2d){
+            .x = 3600 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+            .y = 3600 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+        };
+    } else if (move_duration < 200) {
+        move = 0;
+    } else {
+
+        move = (struct vector2d){
+            .x = speed(config, max_speed.x, move_duration) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+            .y = speed(config, max_speed.y, move_duration) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+        };
+    }
 
     track_remainder(&(move.x), &(remainder->x));
     track_remainder(&(move.y), &(remainder->y));

@@ -78,8 +78,8 @@ static struct vector2d update_movement(struct vector2d *remainder,
     if (*start_time != last_start_time) {
         last_start_time = *start_time;
         move = (struct vector2d){
-            .x = 3600 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
-            .y = 3600 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+            .x = max_speed.x * 2.4 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
+            .y = max_speed.y * 2.4 / (move_duration + 1) * CONFIG_ZMK_MOUSE_TICK_DURATION / 1000,
         };
     } else if (move_duration < 200) {
         move = (struct vector2d){0};

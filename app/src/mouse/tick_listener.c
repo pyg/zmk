@@ -69,7 +69,7 @@ static struct vector2d update_movement(struct vector2d *remainder,
                                        int64_t now, int64_t *start_time) {
     struct vector2d move = {0};
     if (max_speed.x == 0 && max_speed.y == 0) {
-        *remainder = (struct vector2d)S{0};
+        *remainder = (struct vector2d){0};
         return move;
     }
 
